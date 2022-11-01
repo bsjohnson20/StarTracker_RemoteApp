@@ -1,0 +1,80 @@
+MainScreen:
+
+    orientation: 'vertical'
+    BoxLayout:
+        size_hint_y: 0.2
+        orientation: 'horizontal'
+        Label:
+            text: 'Luna\'s Controller'
+        Button:
+            size_hint_x: 0.2
+            text: 'RefreshAPI'
+            on_release: root.weatherAPI()# do weather api
+        Button:
+            text: 'Settings'
+            size_hint_x: 0.2
+            id: 'speed'
+            on_release: app.open_settings()
+
+    GridLayout:
+        size_hint_y: 0.3
+        cols: 2
+        rows: 5
+        Label:
+            text: 'Location'
+        Label:
+            text: root.config.get('General', 'loc')
+            id: loc
+        Label:
+            text: 'Weather'
+        Label:
+            text: 'not_good'
+            id: weather
+        Label:
+            text: 'Temperature'
+        Label:
+            text: '999999oC'
+            id: temp
+        Label:
+            text: 'Humidity'
+        Label:
+            text: '99%'
+            id: humid
+        Label:
+            text: 'Stepper State'
+        Label:
+            text: 'OFF'
+            id: stepper_id
+
+    AsyncImage:
+        size_hint_y: 0.7
+        source: r".\post-25639-0-52313400-1419320653.webp"
+    BoxLayout:
+        size_hint_y: 0.3
+        Label:
+            text: 'OUTPUT'
+        Label:
+            text: 'nothing'
+            id: output
+
+    GridLayout:
+        cols: 3
+        rows: 3
+        size_hint_y: 0.3
+        Label:
+            size_hint_x: 1
+            text: 'STEP SPEED'
+
+        TextInput:
+            id: input
+        Button:
+            text: 'ENTER'
+        Button:
+            text: 'STEP BACK'
+            on_release: root.transmitStepControl(command='command=STEPBACK',ip=str(root.ip))
+        Button:
+            text: 'STEP STOP'
+            on_release: root.transmitStepControl(command='command=STEPSTOP',ip=str(root.ip))
+        Button:
+            text: 'STEP FORW'
+            on_release: root.transmitStepControl(command='command=STEPFORW',ip=str(root.ip))
